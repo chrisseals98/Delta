@@ -1,0 +1,9 @@
+.test {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+ul {
+    padding-left: 0;
+}

@@ -1,0 +1,17 @@
+<h1>
+    Citizens Database
+</h1>
+
+@if(!isLoading) {
+<ul class="test">
+    @for (citizen of citizens; track citizen.id) {
+        <li>{{ citizen.id }}</li>
+    }
+    @empty {
+        <button mat-stroked-button class="no-data" (click)="loadTable()">Load the database?</button>
+    }
+</ul>
+}
+@else {
+    <mat-progress-bar mode="query"></mat-progress-bar>
+}

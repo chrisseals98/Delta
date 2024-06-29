@@ -1,0 +1,24 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media screen and (min-width: 900px) {
+    article {
+        max-width: 50vw;
+    }
+}
+
+li {
+    margin: 15px;
+}
+
+.final {
+    padding-top: 30px;
+}
+
+h1 {
+    display: flex;
+    gap: 5px;
+}
