@@ -4,6 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ### Description
 This project was created with the idea of being in a dystopian cyberpunk universe where citizen information is easily accessed using an api. Things like birth date, ssn, bank balance, and social credit can be queried from the database.
+- The backend that queries the database for this project can be found here: [Back End](https://github.com/chrisseals98/Delta)
 
 ## Development server
 
