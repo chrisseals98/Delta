@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { DirectoryStatus } from './directory-status';
+import { Citizen } from './citizen';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class DirectoryService {
     }
 
     getCitizens() {
-        return this.http.get<any[]>("http://localhost:3000/citizen").pipe(
+        return this.http.get<Citizen[]>("http://localhost:3000/citizen").pipe(
             catchError(this.handleError.bind(this))
         );
     }

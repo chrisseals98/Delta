@@ -1,9 +1,10 @@
-.test {
+.flex {
     display: flex;
     flex-direction: column;
-    gap: 5px;
 }
 
-ul {
-    padding-left: 0;
+@media screen and (min-width: 900px) {
+    mat-table {
+        width: 50vw;
+    }
 }

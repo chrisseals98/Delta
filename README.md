@@ -2,6 +2,9 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.2.
 
+### Description
+This project was created with the idea of being in a dystopian cyberpunk universe where citizen information is easily accessed using an api. Things like birth date, ssn, bank balance, and social credit can be queried from the database.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

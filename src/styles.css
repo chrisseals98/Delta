@@ -7,3 +7,8 @@ body {
     background-color: oklch(44% .019 306.08);
     color: #e0e3e2;
 }
+
+.mat-mdc-snack-bar-container {
+    --mdc-snackbar-container-color: #201a17;
+    --mdc-snackbar-supporting-text-color: #e0e3e2;
+}

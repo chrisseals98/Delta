@@ -1,35 +1,60 @@
-import { HttpClient, HttpErrorResponse, HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AfterViewInit, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import { DirectoryStatus } from '../shared/directory-status';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { DirectoryService } from '../shared/directory-service';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { Citizen } from '../shared/citizen';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-citizen-table',
   standalone: true,
-  imports: [MatButtonModule, MatProgressBarModule],
+  imports: [
+    MatButtonModule,
+    MatProgressBarModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule,
+    ReactiveFormsModule,
+    MatIconModule
+  ],
   templateUrl: './citizen-table.component.html',
   styleUrl: './citizen-table.component.css'
 })
-export class CitizenTableComponent {
+export class CitizenTableComponent implements AfterViewInit {
+
+  displayedColumns: string[] = [
+    "details",
+    "first_name",
+    "lastname",
+    "phone",
+    "socialscore"
+  ];
+
+  filter: FormControl = new FormControl();
+
+  dataSource: MatTableDataSource<Citizen> = new MatTableDataSource();
 
   isLoading = false;
 
-  _citizens: any[] = [];
-
-  get citizens(): any[] {
-    return this._citizens;
-  }
-
-  set citizens(citizens: any[]) {
-    this._citizens = citizens;
-  }
-
   constructor(private snackbar: MatSnackBar, private directoryService: DirectoryService) {}
+
+  ngAfterViewInit() {
+      this.filter.valueChanges.subscribe(value => this.applyFilter(value));
+  }
+
+  applyFilter(event: string) {
+    this.dataSource.filter = event.trim().toLowerCase();
+  }
 
   loadTable() {
     this.isLoading = true;
@@ -53,7 +78,7 @@ export class CitizenTableComponent {
             .subscribe(response => {
               this.isLoading = false;
               this.snackbar.dismiss();
-              this.citizens = response;
+              this.dataSource.data = response;
             });
         }
       });

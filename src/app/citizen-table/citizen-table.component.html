@@ -1,17 +1,53 @@
-<h1>
-    Citizens Database
-</h1>
+<div class="flex">
+    <h1>
+        Citizens Database
+    </h1>
 
-@if(!isLoading) {
-<ul class="test">
-    @for (citizen of citizens; track citizen.id) {
-        <li>{{ citizen.id }}</li>
+    @if(!isLoading && dataSource.data.length > 0) {
+        <mat-form-field>
+            <mat-label>Filter by name</mat-label>
+            <input matInput [formControl]="filter">
+        </mat-form-field>
+
+        <mat-table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="details">
+                <mat-header-cell *matHeaderCellDef>Details</mat-header-cell>
+                <mat-cell *matCellDef="let element"><a mat-button href="/info"><mat-icon fontIcon="info"></mat-icon></a></mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="first_name">
+                <mat-header-cell *matHeaderCellDef>Firstname</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.first_name }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="lastname">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Lastname</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.last_name }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="phone">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.phone_number }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="socialscore">
+                <mat-header-cell mat-header-cell *matHeaderCellDef>Social Score</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.social_score }}</mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+
+            <div *matNoDataRow class="no-data">
+                No data matching the filter "{{filter.value}}"
+            </div>
+        </mat-table>
     }
-    @empty {
+    @else if(dataSource.data.length == 0 && !isLoading) {
         <button mat-stroked-button class="no-data" (click)="loadTable()">Load the database?</button>
     }
-</ul>
-}
-@else {
-    <mat-progress-bar mode="query"></mat-progress-bar>
-}
+    @else {
+        <mat-progress-bar mode="query"></mat-progress-bar>
+    }
+</div>
