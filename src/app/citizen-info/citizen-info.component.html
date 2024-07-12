@@ -1,1 +1,105 @@
-<p>citizen-info works!</p>
+@if(citizen) {
+    <mat-card class="parent">
+        <mat-card-header>
+            <mat-card-title>{{ citizen.first_name }}  {{ citizen.last_name }}</mat-card-title>
+            <mat-card-subtitle>
+                Citizen Score: {{ citizen.social_score }}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+            <button mat-button (click)="goBack()">Go Back</button>
+        </mat-card-actions>
+        <mat-card-content>
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-subtitle>
+                        Contact Information
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item>
+                            Email: {{ citizen.email }}
+                        </mat-list-item>
+                        <mat-list-item>
+                            Phone Number: {{ citizen.phone_number }}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-subtitle>
+                        Personal Information
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item>
+                            Birth Date: {{ getDate(citizen.birth_date) }}
+                        </mat-list-item>
+                        <mat-list-item>
+                            Gender: {{ citizen.gender }}
+                        </mat-list-item>
+                        <mat-list-item>
+                            Race: {{ citizen.race }}
+                        </mat-list-item>
+                        <mat-list-item>
+                            Language: {{ citizen.language }}
+                        </mat-list-item>
+                        <mat-list-item>
+                            Job: {{ citizen.job_title }}
+                        </mat-list-item>
+                        <mat-list-item>
+                            Likes the color {{ citizen.favorite_color }}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-subtitle>
+                        Location
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item>
+                            Street Address: {{ citizen.street_address }}
+                        </mat-list-item>
+                        <mat-list-item>
+                            City: {{ citizen.city }}
+                        </mat-list-item>
+                        <mat-list-item>
+                            State: {{ citizen.state }}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-subtitle>
+                        Bank Information
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item>
+                            Card: {{ citizen.credit_card_type }}
+                        </mat-list-item>
+                        <mat-list-item>
+                            Number: {{ citizen.credit_card_number }}
+                        </mat-list-item>
+                        <mat-list-item>
+                            Balance: {{ citizen.bank_balance }}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </mat-card-content>
+    </mat-card>
+}
+@else {
+    <h1>Loading</h1>
+    <mat-progress-bar mode="query"></mat-progress-bar>
+}

@@ -24,6 +24,12 @@ export class DirectoryService {
         );
     }
 
+    getCitizen(id: number) {
+        return this.http.get<Citizen>("http://localhost:3000/citizen", { params: { id: id } }).pipe(
+            catchError(this.handleError.bind(this))
+        )
+    }
+
     private handleError(error: HttpErrorResponse) {
         let errorMessage = 'An unknown error occurred!';
 

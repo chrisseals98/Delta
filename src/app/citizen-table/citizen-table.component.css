@@ -8,3 +8,11 @@
         width: 50vw;
     }
 }
+
+.active {
+    color: #ffb787;
+}
+
+mat-row:hover {
+    outline: solid 1px #ffb787;
+}

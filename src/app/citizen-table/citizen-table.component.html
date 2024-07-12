@@ -5,14 +5,14 @@
 
     @if(!isLoading && dataSource.data.length > 0) {
         <mat-form-field>
-            <mat-label>Filter by name</mat-label>
+            <mat-label>Search</mat-label>
             <input matInput [formControl]="filter">
         </mat-form-field>
 
-        <mat-table mat-table [dataSource]="dataSource">
+        <mat-table mat-table [dataSource]="dataSource" (contentChanged)="tableFinishedLoading()">
             <ng-container matColumnDef="details">
                 <mat-header-cell *matHeaderCellDef>Details</mat-header-cell>
-                <mat-cell *matCellDef="let element"><a mat-button href="/info"><mat-icon fontIcon="info"></mat-icon></a></mat-cell>
+                <mat-cell *matCellDef="let element" [id]="element.id"><a mat-button [routerLink]="['/info']" [queryParams]="{id: element.id}"><mat-icon fontIcon="info"></mat-icon></a></mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="first_name">
@@ -36,7 +36,7 @@
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns; let i = index;" [ngClass]="{ 'active': isActive(i) }"></mat-row>
 
 
             <div *matNoDataRow class="no-data">

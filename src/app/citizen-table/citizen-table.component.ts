@@ -13,6 +13,8 @@ import {MatInputModule} from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-citizen-table',
@@ -25,7 +27,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatSortModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    RouterModule,
+    CommonModule
   ],
   templateUrl: './citizen-table.component.html',
   styleUrl: './citizen-table.component.css'
@@ -46,7 +50,16 @@ export class CitizenTableComponent implements AfterViewInit {
 
   isLoading = false;
 
-  constructor(private snackbar: MatSnackBar, private directoryService: DirectoryService) {}
+  fragment = "1";
+
+  constructor(private snackbar: MatSnackBar, private directoryService: DirectoryService, private route: ActivatedRoute) {
+    this.route.fragment.subscribe(fragment => {
+      if(fragment) {
+        this.fragment = fragment;
+        this.loadTable();
+      }
+    })
+  }
 
   ngAfterViewInit() {
       this.filter.valueChanges.subscribe(value => this.applyFilter(value));
@@ -93,5 +106,15 @@ export class CitizenTableComponent implements AfterViewInit {
   private handleError(error: HttpErrorResponse) {
     this.isLoading = false;
     return throwError(() => new Error("Unknown error"));
+  }
+
+  tableFinishedLoading() {
+    setTimeout(() => {
+      document.getElementById(this.fragment)?.scrollIntoView({ behavior: 'smooth' });
+    }, 300);
+  }
+
+  isActive(index: number) {
+    return this.fragment == (index + 1).toString();
   }
 }
